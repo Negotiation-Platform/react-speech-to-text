@@ -9,19 +9,20 @@ import './App.css';
 export default function App() {
   const {
     error,
-    interimResult,
     isRecording,
     results,
     startSpeechToText,
-    stopSpeechToText
+    stopSpeechToText,
+    interimResult
   } = useSpeechToText({
     continuous: true,
-    crossBrowser: true,
-    googleApiKey: process.env.REACT_APP_API_KEY,
-    speechRecognitionProperties: { interimResults: true },
-    timeout: 10000
+    timeout: 10000000,
+    googleApiKey: process.env.REACT_APP_GCP_KEY,
+    useOnlyGoogleCloud: true,
+    speechRecognitionProperties: { interimResults: true }
   });
 
+  console.log('interimResult', interimResult);
   if (error) {
     return (
       <div

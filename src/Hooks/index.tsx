@@ -261,9 +261,6 @@ export default function useSpeechToText({
 
       const audio = { content: '' };
 
-
-
-
       const negotiationPhrases = [
         'all the remaining',
         "that's it",
@@ -284,7 +281,7 @@ export default function useSpeechToText({
         'you can',
         'I can give',
         'I want'
-      ]
+      ];
 
       const domainKeywords = [
         'one apple',
@@ -331,20 +328,23 @@ export default function useSpeechToText({
         'zero orange',
         'zero banana',
         'zero watermelon',
-        'all of them',
-      ]
+        'all of them'
+      ];
 
       const negoSpeechContextsElement = {
-        phrases: negotiationPhrases,
-        boost: 20.0,
+        phrases: negotiationPhrases
+        //boost: 20.0,
       };
 
       const domainSpeechContextsElement = {
-        phrases: domainKeywords,
-        boost: 30.0,
+        phrases: domainKeywords
+        //boost: 30.0,
       };
 
-      const speechContexts = [negoSpeechContextsElement, domainSpeechContextsElement];
+      const speechContexts = [
+        negoSpeechContextsElement,
+        domainSpeechContextsElement
+      ];
 
       const config: GoogleCloudRecognitionConfig = {
         encoding: 'LINEAR16',
