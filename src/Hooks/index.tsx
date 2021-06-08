@@ -261,10 +261,96 @@ export default function useSpeechToText({
 
       const audio = { content: '' };
 
+
+
+
+      const negotiationPhrases = [
+        'all the remaining',
+        "that's it",
+        'you take',
+        'I want',
+        'I want everything',
+        'I would like to',
+        'I would like',
+        'I want to',
+        'I need to',
+        'rest is yours',
+        'you can have the rest',
+        'I offer',
+        'I accept',
+        'you give me',
+        'all remaining',
+        'I agree',
+        'you can',
+        'I can give',
+        'I want'
+      ]
+
+      const domainKeywords = [
+        'one apple',
+        'two apple',
+        'two apples',
+        'three apple',
+        'three apples',
+        'four apple',
+        'four apples',
+        'one banana',
+        'two banana',
+        'two bananas',
+        'three banana',
+        'three bananas',
+        'four banana',
+        'four bananas',
+        'one orange',
+        'two orange',
+        'two oranges',
+        'three orange',
+        'three oranges',
+        'four orange',
+        'four oranges',
+        'one watermelon',
+        'two watermelon',
+        'two watermelons',
+        'three watermelon',
+        'three watermelons',
+        'four watermelon',
+        'four watermelons',
+        'all apples',
+        'all oranges',
+        'all bananas',
+        'all watermelons',
+        'all of apples',
+        'all of oranges',
+        'all of bananas',
+        'all of watermelons',
+        'all of the apples',
+        'all of the oranges',
+        'all of the bananas',
+        'all of the watermelons',
+        'zero apple',
+        'zero orange',
+        'zero banana',
+        'zero watermelon',
+        'all of them',
+      ]
+
+      const negoSpeechContextsElement = {
+        phrases: negotiationPhrases,
+        boost: 20.0,
+      };
+
+      const domainSpeechContextsElement = {
+        phrases: domainKeywords,
+        boost: 30.0,
+      };
+
+      const speechContexts = [negoSpeechContextsElement, domainSpeechContextsElement];
+
       const config: GoogleCloudRecognitionConfig = {
         encoding: 'LINEAR16',
         languageCode: 'en-US',
         sampleRateHertz: sampleRate,
+        speechContexts: speechContexts,
         ...googleCloudRecognitionConfig
       };
 
