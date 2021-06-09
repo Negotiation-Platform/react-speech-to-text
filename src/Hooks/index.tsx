@@ -333,12 +333,12 @@ export default function useSpeechToText({
 
       const negoSpeechContextsElement = {
         phrases: negotiationPhrases
-        //boost: 20.0,
+        boost: 20.0,
       };
 
       const domainSpeechContextsElement = {
         phrases: domainKeywords
-        //boost: 30.0,
+        boost: 30.0,
       };
 
       const speechContexts = [
