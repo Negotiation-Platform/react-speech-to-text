@@ -110,6 +110,8 @@ export default function useSpeechToText({
 
       if (grammars) recognition.grammars = grammars;
       if (lang) recognition.lang = lang;
+	  
+	  console.log('ChromeSpeechRecognition')
 
       recognition.interimResults = interimResults || false;
       recognition.maxAlternatives = maxAlternatives || 1;
@@ -121,7 +123,8 @@ export default function useSpeechToText({
       recognition.onresult = (e) => {
         const result = e.results[e.results.length - 1];
         const { transcript } = result[0];
-
+		
+		console.log('interimSetting', interimResults)
         // Allows for realtime speech result UI feedback
         if (interimResults) {
           if (result.isFinal) {
@@ -136,6 +139,7 @@ export default function useSpeechToText({
             }
 
             setInterimResult(concatTranscripts);
+			console.log('interimResult', concatTranscripts);
           }
         } else {
           setResults((prevResults) => [...prevResults, transcript]);
@@ -251,7 +255,7 @@ export default function useSpeechToText({
     reader.onloadend = async () => {
       const base64data = reader.result as string;
 
-      let sampleRate = audioContextRef.current?.sampleRate;
+      let sampleRate = audioContextRef.current?.sampleRate
 
       // Google only accepts max 48000 sample rate: if
       // greater recorder js will down-sample to 48000
@@ -264,26 +268,25 @@ export default function useSpeechToText({
       const negotiationPhrases = [
         'all the remaining',
         "that's it",
-        'you take',
-        'I want',
+        'You take',
         'I want everything',
         'I would like to',
         'I would like',
         'I want to',
         'I need to',
-        'rest is yours',
-        'you can have the rest',
+        'Rest is yours',
+        'You can have the rest',
         'I offer',
         'I accept',
-        'you give me',
-        'all remaining',
+        'You give me',
+        'All remaining',
         'I agree',
         'you can',
         'I can give',
         'I want'
       ];
 
-      const domainKeywords = [
+      const domainKeywords = [		
         'one apple',
         'two apple',
         'two apples',
@@ -330,15 +333,31 @@ export default function useSpeechToText({
         'zero watermelon',
         'all of them'
       ];
+	  
+	  const rawKeywords = [
+		'apple',
+		'apples',
+		'banana',
+		'bananas',
+		'orange',
+		'oranges',		
+		'watermelon',
+		'watermelons'
+	  ]
+	  
+	  const rawKeywordsContextsElement = {
+		phrases: rawKeywords,
+		boost: 40.0
+	  };	  
 
       const negoSpeechContextsElement = {
         phrases: negotiationPhrases,
-        boost: 20.0,
+        boost: 80.0
       };
 
       const domainSpeechContextsElement = {
         phrases: domainKeywords,
-        boost: 30.0,
+        boost: 100.0
       };
 
       const speechContexts = [
@@ -349,6 +368,8 @@ export default function useSpeechToText({
       const config: GoogleCloudRecognitionConfig = {
         encoding: 'LINEAR16',
         languageCode: 'en-US',
+		maxAlternatives: 10,
+		useEnhanced: true,
         sampleRateHertz: sampleRate,
         speechContexts: speechContexts,
         ...googleCloudRecognitionConfig
@@ -363,7 +384,7 @@ export default function useSpeechToText({
       audio.content = base64data.substr(base64data.indexOf(',') + 1);
 
       const googleCloudRes = await fetch(
-        `https://speech.googleapis.com/v1/speech:recognize?key=${googleApiKey}`,
+        `https://speech.googleapis.com/v1p1beta1/speech:recognize?key=${googleApiKey}`,
         {
           method: 'POST',
           body: JSON.stringify(data)
@@ -376,7 +397,10 @@ export default function useSpeechToText({
       if (googleCloudJson.results?.length > 0) {
         setResults((prevResults) => [
           ...prevResults,
-          googleCloudJson.results[0].alternatives[0].transcript
+		  googleCloudJson.results[0].alternatives.reduce(function(prev:any, current:any) {
+				return (prev.confidence > current.confidence) ? prev : current
+		  }).transcript
+          // googleCloudJson.results[0].alternatives[0].transcript
         ]);
       }
 

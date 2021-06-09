@@ -22,7 +22,6 @@ export default function App() {
     speechRecognitionProperties: { interimResults: true }
   });
 
-  console.log('interimResult', interimResult);
   if (error) {
     return (
       <div
