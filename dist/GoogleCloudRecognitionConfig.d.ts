@@ -12,6 +12,7 @@ declare enum AudioEncoding {
 interface ISpeechContext {
     /** SpeechContext phrases */
     phrases?: string[] | null;
+    boost?: number | null;
 }
 /** Properties of a SpeakerDiarizationConfig. */
 interface ISpeakerDiarizationConfig {
