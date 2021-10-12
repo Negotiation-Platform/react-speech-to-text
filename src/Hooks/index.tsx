@@ -266,6 +266,8 @@ export default function useSpeechToText({
       const audio = { content: '' };
 
       const negotiationPhrases = [
+        'accept',
+        'deal',
         'all the remaining',
         "that's it",
         'You take',
