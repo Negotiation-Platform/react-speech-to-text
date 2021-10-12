@@ -349,7 +349,7 @@ export default function useSpeechToText({
 	  
 	  const rawKeywordsContextsElement = {
 		phrases: rawKeywords,
-		boost: 40.0
+		boost: 60.0
 	  };	  
 
       const negoSpeechContextsElement = {
