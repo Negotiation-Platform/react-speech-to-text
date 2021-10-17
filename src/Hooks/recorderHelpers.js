@@ -56,7 +56,7 @@ export async function startRecording({
 export function stopRecording({ exportWAV, wavCallback }) {
   // stop recorder.js recording
   rec.stop();
-
+  rec.worker.terminate()
   // stop microphone access
   microphoneStream.getAudioTracks()[0].stop();
 
