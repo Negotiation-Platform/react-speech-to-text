@@ -65,7 +65,7 @@ export function stopRecording({ exportWAV, wavCallback }) {
   }
 
   rec.clear();
-  setTimeout(() => {
-    rec.worker.terminate();
-  }, 10000);
+  // setTimeout(() => {
+  rec.worker.terminate();
+  // }, 10000);
 }
