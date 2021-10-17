@@ -31,6 +31,9 @@ export async function startRecording({
     /* use the stream */
     input = audioContext.createMediaStreamSource(stream);
 
+    if (rec.worker) {
+      rec.worker.terminate();
+    }
     rec = new Recorder(input);
 
     // start the recording process
@@ -66,6 +69,5 @@ export function stopRecording({ exportWAV, wavCallback }) {
 
   rec.clear();
   // setTimeout(() => {
-  rec.worker.terminate();
   // }, 10000);
 }
