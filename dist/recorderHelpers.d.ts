@@ -7,7 +7,7 @@
  * }}
  * @returns {Promise<MediaStream>}
  */
-export function startRecording({ audioContext, errHandler, onStreamLoad, }: {
+export function startRecording({ audioContext, errHandler, onStreamLoad }: {
     audioContext: AudioContext;
     errHandler?: () => void;
     onStreamLoad?: () => void;

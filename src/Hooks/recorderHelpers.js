@@ -16,7 +16,7 @@ let input; // MediaStreamAudioSourceNode we'll be recording
 export async function startRecording({
   audioContext,
   errHandler,
-  onStreamLoad,
+  onStreamLoad
 }) {
   try {
     const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
@@ -56,7 +56,6 @@ export async function startRecording({
 export function stopRecording({ exportWAV, wavCallback }) {
   // stop recorder.js recording
   rec.stop();
-  rec.worker.terminate()
   // stop microphone access
   microphoneStream.getAudioTracks()[0].stop();
 
@@ -66,4 +65,5 @@ export function stopRecording({ exportWAV, wavCallback }) {
   }
 
   rec.clear();
+  rec.worker.terminate();
 }
