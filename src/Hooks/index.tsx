@@ -259,36 +259,49 @@ export default function useSpeechToText({
 
       // Google only accepts max 48000 sample rate: if
       // greater recorder js will down-sample to 48000
-      if (sampleRate && sampleRate > 48000) {
-        sampleRate = 48000;
+      if (sampleRate && sampleRate > 44100) {
+        sampleRate = 44100;
       }
 
       const audio = { content: '' };
 
       const negotiationPhrases = [
-        'accept',
-        'deal',
-        'all the remaining',
-        "that's it",
-        'You take',
-        'I want everything',
-        'I would like to',
-        'I would like',
-        'I want to',
-        'I need to',
-        'Rest is yours',
-        'You can have the rest',
-        'I offer',
-        'I accept',
-        'You give me',
-        'All remaining',
-        'I agree',
-        'you can',
-        'I can give',
-        'I want'
+		'want',
+		'except the',
+		'all the remaining',
+		'except',
+		"that's it",
+		'and',
+		'take',
+		'all of them',
+		'want',
+		'would like to',
+		'would like',
+		'want to',
+		'need to',
+		'like to',
+		'rest is yours',
+		'you can have the rest',
+		'rest',
+		'offer',
+		'accept',
+		'give me',
+		'all remainings',
+		'all remaining',
+		'deal',
+		'yes',
+		'agree',
+		'everything',
+		'you can',
+		'I can give'
       ];
 
-      const domainKeywords = [		
+      const domainKeywords = [	
+		'zero',
+		'one',
+		'two',
+		'three',
+		'four',
         'one apple',
         'two apple',
         'two apples',
@@ -334,32 +347,16 @@ export default function useSpeechToText({
         'zero banana',
         'zero watermelon',
         'all of them'
-      ];
-	  
-	  const rawKeywords = [
-		'apple',
-		'apples',
-		'banana',
-		'bananas',
-		'orange',
-		'oranges',		
-		'watermelon',
-		'watermelons'
-	  ]
-	  
-	  const rawKeywordsContextsElement = {
-		phrases: rawKeywords,
-		boost: 60.0
-	  };	  
+      ];	  
 
       const negoSpeechContextsElement = {
         phrases: negotiationPhrases,
-        boost: 80.0
+        boost: 35.0
       };
 
       const domainSpeechContextsElement = {
         phrases: domainKeywords,
-        boost: 100.0
+        boost: 45.0
       };
 
       const speechContexts = [

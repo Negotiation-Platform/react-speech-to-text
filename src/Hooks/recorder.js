@@ -3,7 +3,7 @@ import InlineWorker from 'inline-worker';
 export class Recorder {
   constructor(source, cfg) {
     this.config = {
-      bufferLen: 4096,
+      bufferLen: 4410,
       numChannels: 1,
       mimeType: 'audio/wav',
       ...cfg
@@ -73,8 +73,8 @@ export class Recorder {
         numChannels = config.numChannels;
         initBuffers();
 
-        if (sampleRate > 48000) {
-          newSampleRate = 48000;
+        if (sampleRate > 44100) {
+          newSampleRate = 44100;
         } else {
           newSampleRate = sampleRate;
         }
