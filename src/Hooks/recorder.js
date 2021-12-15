@@ -3,7 +3,7 @@ import InlineWorker from 'inline-worker';
 export class Recorder {
   constructor(source, cfg) {
     this.config = {
-      bufferLen: 4410,
+      bufferLen: 4096,
       numChannels: 1,
       mimeType: 'audio/wav',
       ...cfg
