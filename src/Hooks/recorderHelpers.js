@@ -19,17 +19,14 @@ export async function startRecording({
   onStreamLoad
 }) {
   try {
-
     const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-    /*  assign stream for later use  */
-    microphoneStream = stream;
-
 
     if (onStreamLoad) {
       onStreamLoad();
     }
 
-
+    /*  assign stream for later use  */
+    microphoneStream = stream;
 
     /* use the stream */
     input = audioContext.createMediaStreamSource(stream);
@@ -66,9 +63,9 @@ export function stopRecording({ exportWAV, wavCallback }) {
   microphoneStream.getAudioTracks()[0].stop();
 
   // create the wav blob
-  // if (exportWAV && wavCallback) {
-  //   rec.exportWAV((blob) => wavCallback(blob));
-  // }
+  if (exportWAV && wavCallback) {
+    rec.exportWAV((blob) => wavCallback(blob));
+  }
 
   rec.clear();
   // setTimeout(() => {

@@ -1,6 +1,6 @@
 {
   "name": "react-hook-speech-to-text",
-  "version": "0.6.4",
+  "version": "0.6.5",
   "private": false,
   "main": "dist/index.js",
   "license": "MIT",
