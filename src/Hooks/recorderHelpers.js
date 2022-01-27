@@ -19,19 +19,17 @@ export async function startRecording({
   onStreamLoad
 }) {
   try {
-    let stream
-    if (!microphoneStream) {
-      stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-    } else {
-      stream = microphoneStream;
-    }
+
+    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+    /*  assign stream for later use  */
+    microphoneStream = stream;
+
 
     if (onStreamLoad) {
       onStreamLoad();
     }
 
-    /*  assign stream for later use  */
-    microphoneStream = stream;
+
 
     /* use the stream */
     input = audioContext.createMediaStreamSource(stream);
@@ -63,14 +61,14 @@ export async function startRecording({
  */
 export function stopRecording({ exportWAV, wavCallback }) {
   // stop recorder.js recording
-  // rec.stop();
+  rec.stop();
   // stop microphone access
-  // microphoneStream.getAudioTracks()[0].stop();
+  microphoneStream.getAudioTracks()[0].stop();
 
   // create the wav blob
-  if (exportWAV && wavCallback) {
-    rec.exportWAV((blob) => wavCallback(blob));
-  }
+  // if (exportWAV && wavCallback) {
+  //   rec.exportWAV((blob) => wavCallback(blob));
+  // }
 
   rec.clear();
   // setTimeout(() => {
